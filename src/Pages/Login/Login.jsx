@@ -10,17 +10,28 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  return (
+  const token = localStorage.getItem("token")
+  const navigate = useNavigate()
+  const handleLogin = async() => {
+    try {
+      localStorage.setItem("token" , "token")
+      navigate("/")
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return token == null ? (
     <Box>
       <Container>
         <Box
           sx={{
             padding: "2rem 1.3rem",
             width: "400px",
-            height: "600px",
+            height: "530px",
             background: "#fff",
             borderRadius: "15px",
             boxShadow: "0px 0px 15px #80808050",
@@ -32,7 +43,7 @@ const Login = () => {
           component="div"
         >
           <Typography sx={{ fontWeight: "500" }} variant="h4">
-            Sign Up
+            Sign In
           </Typography>
 
           <Box
@@ -103,11 +114,6 @@ const Login = () => {
           >
             <TextField
               id="outlined-basic"
-              label="Your name"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
               label="Your email"
               variant="outlined"
             />
@@ -117,26 +123,28 @@ const Login = () => {
               variant="outlined"
             />
 
-            <Button
-              sx={{
-                width: "100%",
-                color: "#fff",
-                backgroundColor: "#6200EE",
-                marginTop: "2rem",
-              }}
-              type="submit"
-            >
-              Button
-            </Button>
+            <Link onClick={handleLogin}>
+              <Button
+                sx={{
+                  width: "100%",
+                  color: "#fff",
+                  backgroundColor: "#6200EE",
+                  marginTop: "2rem",
+                }}
+                type="submit"
+              >
+                Button
+              </Button>
+            </Link>
             <Typography sx={{ textAlign: "center" }}>
               Already signed up ?{" "}
-              <Link style={{ color: "blue" }}>Go to sign in.</Link>
+              <Link style={{ color: "blue" }}>Go to sign up.</Link>
             </Typography>
           </FormControl>
         </Box>
       </Container>
     </Box>
-  );
+  ) : <Navigate  to="/" />;
 };
 
 export default Login;
