@@ -40,8 +40,10 @@ const Home = () => {
               id="outlined-basic"
               placeholder="Enter your name"
               variant="outlined"
+              
               inputProps={{
                 style: {
+                  width: '220px',
                   height: "8px",
                 },
               }}
@@ -54,10 +56,14 @@ const Home = () => {
             <Button
               onClick={() => setOpen(true)}
               sx={{
+                padding: "0.5rem 1.3rem",
+                display: 'flex',
                 backgroundColor: "#6200EE",
                 color: "#fff",
                 textTransform: 'none',
-
+                alignItems: "center",
+                justifyContent: "center",
+                gap: '0.4rem',
                 
                 ":hover": {
                   backgroundColor: "#fff",
@@ -67,7 +73,7 @@ const Home = () => {
                 },
               }}
             >
-              + Create a book 
+              <i className="fa-solid fa-plus"></i> Create a book 
             </Button>
           </Box>
         </Box>

@@ -1,1 +1,1 @@
-export const  PrivateToken = "token"
+export const PrivateToken = "Key"

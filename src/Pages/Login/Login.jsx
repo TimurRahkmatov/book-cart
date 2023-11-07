@@ -11,9 +11,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { PrivateToken } from "../../constains/PrivateToken";
 
 const Login = () => {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem(PrivateToken)
   const navigate = useNavigate()
   const handleLogin = async() => {
     try {
