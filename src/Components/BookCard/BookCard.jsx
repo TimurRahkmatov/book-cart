@@ -4,7 +4,7 @@ import React from 'react'
 const BookCard = () => {
   return (
     <Box sx={{width: '400px' , backgroundColor: "#fff" , padding: "1.5rem" , minHeight: "200px" , borderRadius: "8px" , display: "flex" , flexDirection: 'column' , gap: '0.7rem'}}>
-        <Typography sx={{fontSize: "1.1rem" , fontWeight: '600'}}>
+        <Typography sx={{fontSize: "1.1rem" , fontWeight: '600' , width: "350px"}}>
             Raspberry Pi User Guide
         </Typography>
         <Typography sx={{width: "350px"}}>
