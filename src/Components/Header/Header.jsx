@@ -14,7 +14,7 @@ const Header = () => {
             justifyContent: "space-between",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "1.4rem" }}>
             <img src={LogoImg} alt="" />
             <FormLabel htmlFor="my-input">
               <i
