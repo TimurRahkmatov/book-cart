@@ -56,14 +56,18 @@ const Home = () => {
               sx={{
                 backgroundColor: "#6200EE",
                 color: "#fff",
+                textTransform: 'none',
+
+                
                 ":hover": {
                   backgroundColor: "#fff",
                   color: "#6200EE",
+                  textTransform: 'none',
                   border: "1px solid #6200EE",
                 },
               }}
             >
-              + Create book
+              + Create a book 
             </Button>
           </Box>
         </Box>

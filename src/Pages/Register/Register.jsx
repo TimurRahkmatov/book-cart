@@ -1,17 +1,43 @@
-import React from 'react'
+import React, { useState } from "react";
 import {
   Box,
   Button,
   Container,
   FormControl,
-  FormHelperText,
-  Input,
-  InputLabel,
   TextField,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { PrivateToken } from "../../constains/PrivateToken";
+import { auth_api } from "../../Api/user.api";
+import { toast } from "react-toastify";
 const Register = () => {
+  const navigate = useNavigate();
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    key: "",
+    secret: "",
+  });
+
+  function handleInputChange(e) {
+    setValues((v) => ({ ...v, [e.target.name]: e.target.value }));
+  }
+
+  const handleSubmitRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await auth_api.register(values);
+      if (data?.isOk === true) {
+        toast("Success registered", { type: "success" });
+        localStorage.setItem(PrivateToken , data?.data?.key);
+        navigate("/");
+      }
+    } catch (error) {
+      toast(error?.response?.data?.message, { type: "warning" });
+    }
+  };
+
   return (
     <Box>
       <Container>
@@ -92,6 +118,8 @@ const Register = () => {
             ></Box>
           </Box>
           <FormControl
+            onSubmit={handleSubmitRegister}
+            component="form"
             sx={{
               width: "100%",
               display: "flex",
@@ -101,16 +129,33 @@ const Register = () => {
             }}
           >
             <TextField
+              onChange={handleInputChange}
+              value={values.name}
+              name="name"
               id="outlined-basic"
               label="username"
               variant="outlined"
             />
             <TextField
+              onChange={handleInputChange}
+              value={values.key}
+              name="key"
+              id="outlined-basic"
+              label="key"
+              variant="outlined"
+            />
+            <TextField
+              onChange={handleInputChange}
+              name="email"
+              value={values.email}
               id="email"
               label="Your email"
               variant="outlined"
             />
             <TextField
+              onChange={handleInputChange}
+              name="secret"
+              value={values.password}
               id="password"
               label="Your password"
               variant="outlined"
@@ -121,7 +166,11 @@ const Register = () => {
                 width: "100%",
                 color: "#fff",
                 backgroundColor: "#6200EE",
-                marginTop: "2rem",
+                ":hover": {
+                  backgroundColor: "#fff",
+                  color: "#6200EE",
+                  border: "2px solid #6200EE",
+                },
               }}
               type="submit"
             >
@@ -135,7 +184,7 @@ const Register = () => {
         </Box>
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

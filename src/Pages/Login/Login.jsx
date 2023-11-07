@@ -130,10 +130,11 @@ const Login = () => {
                   width: "100%",
                   color: "#fff",
                   backgroundColor: "#6200EE",
+                  border: "1px solid #6200EE ",
                   marginTop: "2rem",
                   ":hover": {
                     backgroundColor: "#fff",
-                    color: "#6200EE"
+                    color: "#6200EE",
                   }
                 }}
                 type="submit"

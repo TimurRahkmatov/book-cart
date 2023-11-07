@@ -71,7 +71,7 @@ const BookModal = ({ open, setOpen }) => {
                 Title
               </FormLabel>
               <TextField
-              placeholder="Enter your title"
+                placeholder="Enter your title"
                 id="title"
                 sx={{ width: "100%", marginTop: "0.3rem" }}
                 variant="outlined"
@@ -87,10 +87,9 @@ const BookModal = ({ open, setOpen }) => {
                 Author
               </FormLabel>
               <TextField
-              placeholder="Enter your author"
-              
+                placeholder="Enter your author"
                 id="author"
-                sx={{ width: "100%" , marginTop: "0.3rem" }}
+                sx={{ width: "100%", marginTop: "0.3rem" }}
                 variant="outlined"
                 inputProps={{
                   style: {
@@ -104,10 +103,9 @@ const BookModal = ({ open, setOpen }) => {
                 Cover
               </FormLabel>
               <TextField
-              placeholder="Enter your cover"
-
+                placeholder="Enter your cover"
                 id="cover"
-                sx={{ width: "100%" , marginTop: "0.3rem"}}
+                sx={{ width: "100%", marginTop: "0.3rem" }}
                 variant="outlined"
                 inputProps={{
                   style: {
@@ -121,10 +119,9 @@ const BookModal = ({ open, setOpen }) => {
                 Published
               </FormLabel>
               <TextField
-              placeholder="Enter your published"
-
+                placeholder="Enter your published"
                 id="Published"
-                sx={{ width: "100%" , marginTop: "0.3rem" }}
+                sx={{ width: "100%", marginTop: "0.3rem" }}
                 variant="outlined"
                 inputProps={{
                   style: {
@@ -138,10 +135,9 @@ const BookModal = ({ open, setOpen }) => {
                 Pages
               </FormLabel>
               <TextField
-              placeholder="Enter your pages"
-
+                placeholder="Enter your pages"
                 id="pages"
-                sx={{ width: "100%" , marginTop: "0.3rem" }}
+                sx={{ width: "100%", marginTop: "0.3rem" }}
                 variant="outlined"
                 inputProps={{
                   style: {
@@ -150,18 +146,29 @@ const BookModal = ({ open, setOpen }) => {
                 }}
               />
             </Box>
-            <Box sx={{display: "flex" , justifyContent: "space-between" , alignItems: "center" , gap: "1rem"}}>
-            <Button
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "1rem",
+              }}
+            >
+              <Button
+                onClick={() => setOpen(false)}
                 sx={{
                   width: "100%",
                   color: "#fff",
                   border: "2px solid #6200EE",
                   color: "#6200EE",
                   marginTop: "2rem",
+                  textTransform: "none",
+
                   ":hover": {
                     backgroundColor: "#6200EE",
                     color: "#fff",
-                    border: "2px solid #6200EE"
+                    border: "2px solid #6200EE",
+                    textTransform: "none",
                   },
                 }}
                 type="submit"
@@ -174,10 +181,13 @@ const BookModal = ({ open, setOpen }) => {
                   color: "#fff",
                   backgroundColor: "#6200EE",
                   marginTop: "2rem",
+                  textTransform: "none",
+
                   ":hover": {
                     backgroundColor: "#fff",
                     color: "#6200EE",
-                    border: "2px solid #6200EE"
+                    border: "2px solid #6200EE",
+                    textTransform: "none",
                   },
                 }}
                 type="submit"
