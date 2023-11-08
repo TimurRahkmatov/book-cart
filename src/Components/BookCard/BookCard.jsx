@@ -12,22 +12,21 @@ const BookCard = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [id , setId] = useState(null)
-
+  
+  const state = useSelector((state) => state?.book.book);
   const handleOpenModal = (open , id) => {
     setOpen(open)
     setId(id)
   }
-  const state = useSelector((state) => state?.book.book);
   const key = localStorage.getItem("Key");
   const secret = localStorage.getItem("SecretKey");
-
+  
   const getBooks = async () => {
     try {
       const hash = Crypto.MD5("GET/books" + secret).toString();
       const { data } = await axios.get("https://0001.uz/books", {
         headers: { Key: key, Sign: hash },
       });
-      console.log(data);
       if (data?.isOk === true) {
         dispatch(updateBook(data?.data));
       }
@@ -35,7 +34,10 @@ const BookCard = () => {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    getBooks();
+  }, []);
+  
   const handleRemoveBook = async (id) => {
     try {
       const hash = Crypto.MD5("DELETE/books/" + id + secret).toString();
@@ -54,13 +56,7 @@ const BookCard = () => {
     }
   };
 
-  // console.log(state);
-
-  useEffect(() => {
-    getBooks();
-  }, []);
-
-  console.log(state);
+  console.log("state",state);
 
   return (
     <>

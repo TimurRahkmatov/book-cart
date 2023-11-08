@@ -15,19 +15,23 @@ import { createBook } from "../../../store/slices/book";
 import { toast } from "react-toastify";
 
 const BookModal = ({ open, setOpen }) => {
-  const [isbn , setIsbn] = useState('')
+  const [isbn, setIsbn] = useState("");
   const handleClose = () => setOpen(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const key = localStorage.getItem("Key");
   const secret = localStorage.getItem("SecretKey");
   const handleCreateBook = async (e) => {
     e.preventDefault();
     const hash = Crypto.MD5(`POST/books{"isbn":"${isbn}"}` + secret).toString();
     try {
-      const { data } = await axios.post("https://0001.uz/books" , {isbn: isbn }, {headers: {Key: key,Sign:hash }});
-      if(data?.isOk == true) {
-        toast("success added book" , {type: "success"})
-        dispatch(createBook(data?.data))
+      const { data } = await axios.post(
+        "https://0001.uz/books",
+        { isbn: isbn },
+        { headers: { Key: key, Sign: hash } }
+      );
+      if (data?.isOk == true) {
+        toast("success added book", { type: "success" });
+        dispatch(createBook(data.data));
       }
       console.log(data);
     } catch (error) {
@@ -82,9 +86,8 @@ const BookModal = ({ open, setOpen }) => {
             </Box>
           </Box>
           <FormControl
-          component="form"
-          
-            sx={{ 
+            component="form"
+            sx={{
               width: "100%",
               display: "flex",
               flexDirection: "column",
@@ -139,7 +142,7 @@ const BookModal = ({ open, setOpen }) => {
                 Close
               </Button>
               <Button
-              onClick={handleCreateBook}
+                onClick={handleCreateBook}
                 sx={{
                   width: "100%",
                   color: "#fff",
