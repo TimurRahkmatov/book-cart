@@ -56,8 +56,6 @@ const BookCard = () => {
     }
   };
 
-  console.log("state",state);
-
   return (
     <>
       {state?.map((item) => (
@@ -78,7 +76,7 @@ const BookCard = () => {
           >
             {item?.book?.title}
           </Typography>
-          <Typography sx={{ width: "350px" }}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, minus. Nostrum iste doloremque ullam atque voluptatem. Non libero quasi praesentium!</Typography>
+          <Typography sx={{ width: "350px" }}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, minus. Nostrum iste!</Typography>
           <Box
             sx={{
               display: "flex",
@@ -110,6 +108,8 @@ const BookCard = () => {
               {item?.book?.pages}
             </Box>
           </Box>
+          <Box>
+            <Typography variant="body2">status: {item?.status}</Typography>
           <Box
             component="div"
             sx={{
@@ -124,6 +124,7 @@ const BookCard = () => {
               Delete
             </Button>
             <Button onClick={() => handleOpenModal(true , item?.book?.id) }>Edit</Button>
+          </Box>
           </Box>
         </Box>
       ))}

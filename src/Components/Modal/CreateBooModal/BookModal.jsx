@@ -33,7 +33,6 @@ const BookModal = ({ open, setOpen }) => {
         toast("success added book", { type: "success" });
         dispatch(createBook(data.data));
       }
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

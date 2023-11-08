@@ -16,12 +16,16 @@ const bookSlice = createSlice({
     },
     createBook(state , action) {
         state?.book?.push({book : action.payload})
+    },
+    editBookStatus(state , action) {
+        const book = state.book.find((item) => item.book.id == action.payload.book.id)
+        book.status = action.payload.status
     }
 
   },
 });
 
-export const { updateBook , createBook , deleteBook } = bookSlice.actions;
+export const { updateBook , createBook , deleteBook , editBookStatus } = bookSlice.actions;
 
 const bookReducer = bookSlice.reducer;
 

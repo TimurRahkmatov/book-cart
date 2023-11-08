@@ -4,27 +4,33 @@ import { Radio } from "antd";
 import Crypto from "crypto-js";
 
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { editBookStatus } from "../../../store/slices/book";
 
 const EditbookModal = ({ open, setOpen, id }) => {
+const dispatch = useDispatch()
   const [value, setValue] = useState(1);
+  const key = localStorage.getItem("Key");
+  const secret = localStorage.getItem("SecretKey");
+
+  
   const onChange = (e) => {
     setValue(e.target.value);
   };
 
   const EditstatusBook = async () => {
-    const status = {
-      status: value,
-    };
-
-    const hash = Crypto.MD5("PATCH/books/" + id + status + "dot").toString();
-    console.log("hash", hash);
+    const hash = Crypto.MD5(`PATCH/books/${id}{"status":${value}}` + secret).toString();
     try {
       const { data } = await axios.patch(
         "https://0001.uz/books/" + id,
-        { "status": 1 },
-        { headers: { Key: "dot", Sign: "5ec6adbb5c03bc3b64a688098973126e" } }
+        { "status": value },
+        { headers: { Key: key, Sign: hash } }
       );
-      console.log(data);
+      if(data.isOk == true) {
+        toast("Success updated status" , {type: "success"})
+        dispatch(editBookStatus(data?.data))
+      }
     } catch (error) {
       console.log(error);
     }
@@ -55,19 +61,6 @@ const EditbookModal = ({ open, setOpen, id }) => {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Edit status Book
         </Typography>
-        {/* <Box
-          sx={{
-            display: "flex",
-            marginTop: "1rem",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "1rem",
-          }}
-        >
-          <Typography variant="body2">0 - New</Typography>
-          <Typography variant="body2">1 - Reading</Typography>
-          <Typography variant="body2">2 - Finished</Typography>
-        </Box> */}
         <Radio.Group
           style={{
             display: "flex",
@@ -77,9 +70,9 @@ const EditbookModal = ({ open, setOpen, id }) => {
           onChange={onChange}
           value={value}
         >
-          <Radio value={0}>New</Radio>
-          <Radio value={1}>Reading</Radio>
-          <Radio value={2}>Finished</Radio>
+          <Radio value={0}>1-New</Radio>
+          <Radio value={1}>2-Reading</Radio>
+          <Radio value={2}>3-Finished</Radio>
         </Radio.Group>
         <Button
           onClick={() => EditstatusBook()}
