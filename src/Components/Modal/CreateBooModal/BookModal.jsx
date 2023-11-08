@@ -13,21 +13,20 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { createBook } from "../../../store/slices/book";
 import { toast } from "react-toastify";
+import { KEY, SECRET } from "../../../constains/hash";
 
 const BookModal = ({ open, setOpen }) => {
   const [isbn, setIsbn] = useState("");
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
-  const key = localStorage.getItem("Key");
-  const secret = localStorage.getItem("SecretKey");
   const handleCreateBook = async (e) => {
     e.preventDefault();
-    const hash = Crypto.MD5(`POST/books{"isbn":"${isbn}"}` + secret).toString();
+    const HASH_CREATE_BOOK = Crypto.MD5(`POST/books{"isbn":"${isbn}"}` + SECRET).toString()
     try {
       const { data } = await axios.post(
         "https://0001.uz/books",
         { isbn: isbn },
-        { headers: { Key: key, Sign: hash } }
+        { headers: { Key: KEY, Sign: HASH_CREATE_BOOK } }
       );
       if (data?.isOk == true) {
         toast("success added book", { type: "success" });

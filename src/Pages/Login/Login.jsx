@@ -11,21 +11,11 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { PrivateToken } from "../../constains/PrivateToken";
 
 const Login = () => {
-  const token = localStorage.getItem(PrivateToken)
   const navigate = useNavigate()
-  const handleLogin = async() => {
-    try {
-      localStorage.setItem("token" , "token")
-      navigate("/")
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
-  return token == null ? (
+  return (
     <Box>
       <Container>
         <Box
@@ -124,7 +114,7 @@ const Login = () => {
               variant="outlined"
             />
 
-            <Link onClick={handleLogin}>
+            <Link >
               <Button
 
                 sx={{
@@ -152,7 +142,7 @@ const Login = () => {
         </Box>
       </Container>
     </Box>
-  ) : <Navigate  to="/" />;
+  );
 };
 
 export default Login;

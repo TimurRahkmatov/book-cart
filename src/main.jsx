@@ -16,13 +16,10 @@ import { ToastContainer } from "react-toastify";
 
 
 // axios
-const key = localStorage.getItem(PrivateToken);
 axios.defaults.headers.common["Content-Type"] = "application/json";
-// if (key) axios.defaults.headers.common["Key"] = key;
 
 // Router
 import { BrowserRouter as Router } from "react-router-dom";
-import { PrivateToken } from "./constains/PrivateToken.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>

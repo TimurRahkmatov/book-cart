@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { editBookStatus } from "../../../store/slices/book";
+import { KEY, SECRET } from "../../../constains/hash";
 
 const EditbookModal = ({ open, setOpen, id }) => {
 const dispatch = useDispatch()
@@ -14,18 +15,18 @@ const dispatch = useDispatch()
   const key = localStorage.getItem("Key");
   const secret = localStorage.getItem("SecretKey");
 
-  
+
   const onChange = (e) => {
     setValue(e.target.value);
   };
 
   const EditstatusBook = async () => {
-    const hash = Crypto.MD5(`PATCH/books/${id}{"status":${value}}` + secret).toString();
+    const HASH_EDIT_STATUS_BOOK = Crypto.MD5(`PATCH/books/${id}{"status":${value}}` + SECRET).toString();
     try {
       const { data } = await axios.patch(
         "https://0001.uz/books/" + id,
         { "status": value },
-        { headers: { Key: key, Sign: hash } }
+        { headers: { Key: KEY, Sign: HASH_EDIT_STATUS_BOOK } }
       );
       if(data.isOk == true) {
         toast("Success updated status" , {type: "success"})

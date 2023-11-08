@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { PrivateToken } from "../../constains/PrivateToken";
 import { Box } from "@mui/material";
 import BackgroundImage from "../../assets/background.png"
+import { KEY } from "../../constains/hash";
 const Public = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem(PrivateToken);
 
   useEffect(() => {
-    if (token) {
+    if (KEY) {
         navigate("/")
     }
   }, []);

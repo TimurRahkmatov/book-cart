@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { PrivateToken } from "../../constains/PrivateToken";
 import { auth_api } from "../../Api/user.api";
 import { toast } from "react-toastify";
 const Register = () => {
@@ -30,7 +29,7 @@ const Register = () => {
       const { data } = await auth_api.register(values);
       if (data?.isOk === true) {
         toast("Success registered", { type: "success" });
-        localStorage.setItem(PrivateToken , data?.data?.key);
+        localStorage.setItem("Key" , data?.data?.key);
         localStorage.setItem("SecretKey" , data?.data?.secret)
         navigate("/");
       }

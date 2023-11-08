@@ -7,6 +7,7 @@ import { deleteBook, updateBook } from "../../store/slices/book";
 import { Button } from "antd";
 import { toast } from "react-toastify";
 import EditbookModal from "../Modal/EditBookModal";
+import { HASH_GET_BOOKS, KEY, SECRET } from "../../constains/hash";
 
 const BookCard = () => {
   const dispatch = useDispatch();
@@ -18,14 +19,11 @@ const BookCard = () => {
     setOpen(open)
     setId(id)
   }
-  const key = localStorage.getItem("Key");
-  const secret = localStorage.getItem("SecretKey");
   
   const getBooks = async () => {
     try {
-      const hash = Crypto.MD5("GET/books" + secret).toString();
       const { data } = await axios.get("https://0001.uz/books", {
-        headers: { Key: key, Sign: hash },
+        headers: { Key: KEY, Sign: HASH_GET_BOOKS },
       });
       if (data?.isOk === true) {
         dispatch(updateBook(data?.data));
@@ -40,11 +38,11 @@ const BookCard = () => {
   
   const handleRemoveBook = async (id) => {
     try {
-      const hash = Crypto.MD5("DELETE/books/" + id + secret).toString();
+      const HASH_REMOVE_BOOK = Crypto.MD5("DELETE/books/" + id + SECRET).toString();
       const { data } = await axios.delete(`https://0001.uz/books/${id}`, {
         headers: {
-          Key: key,
-          Sign: hash,
+          Key: KEY,
+          Sign: HASH_REMOVE_BOOK,
         },
       });
       if (data?.isOk == true) {
