@@ -12,21 +12,19 @@ import BookModal from "../../Components/Modal/CreateBooModal";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { updateBook } from "../../store/slices/book";
+import { HASH_GET_BOOKS, KEY } from "../../constains/hash";
 
 
 const Home = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const state = useSelector((state) => state?.book.book);
-  const secret = localStorage.getItem("SecretKey");
 
 
   const getBooks = async () => {
     try {
-      const key = localStorage.getItem("Key");
-      const hash = Crypto.MD5("GET/books" + secret).toString();
       const { data } = await axios.get("https://0001.uz/books", {
-        headers: { Key: key, Sign: hash },
+        headers: { Key: KEY, Sign: HASH_GET_BOOKS },
       });
       if (data?.isOk === true) {
         dispatch(updateBook(data?.data));
@@ -42,7 +40,6 @@ const Home = () => {
   }, []);
 
 
-
   return (
     <Box sx={{ padding: "2rem 0" }} component="section">
       <Container>
@@ -52,6 +49,7 @@ const Home = () => {
             alignItems: "center",
             justifyContent: "space-between",
             flexWrap: "wrap",
+            gap:"2rem"
           }}
         >
           <Box>
@@ -60,8 +58,8 @@ const Home = () => {
               variant="h4"
             >
               You've got{" "}
-              <Typography variant="h4" sx={{ color: "#6200EE" }}>
-                {state === null ?  ("0") : (state?.length)}
+              <Typography variant="h4" sx={{ color: "#6200EE" , }}>
+                {state === null ?  ("0") : (state?.length)} books
               </Typography>
             </Typography>
           </Box>
@@ -113,7 +111,7 @@ const Home = () => {
          />
         <Box>
           <Typography variant="h6" sx={{ color: "#fff", marginTop: "1rem" }}>
-            {state === null ? ("You have not books") : ("Your task today")}
+            {state.length  == 0 ? ("You have not books") : ("Your task today")}
           </Typography>
           <Box
             sx={{

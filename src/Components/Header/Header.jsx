@@ -3,6 +3,15 @@ import React from "react";
 import LogoImg from "../../assets/logo.png";
 import Avatar from "../../assets/avatar.png";
 const Header = () => {
+  const GetSearchBooks = async () => {
+    try {
+
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Box sx={{ padding: "1.5rem 0" }} component="header">
       <Container>
@@ -31,7 +40,10 @@ const Header = () => {
             />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-            <i style={{fontSize: "1.5rem"}} className="fa-regular fa-bell"></i>
+            <i
+              style={{ fontSize: "1.5rem" }}
+              className="fa-regular fa-bell"
+            ></i>
             <img src={Avatar} alt="" />
           </Box>
         </Box>

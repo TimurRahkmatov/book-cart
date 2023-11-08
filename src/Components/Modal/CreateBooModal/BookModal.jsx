@@ -52,6 +52,7 @@ const BookModal = ({ open, setOpen }) => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: 400,
+            
             bgcolor: "background.paper",
             border: "2px solid grey",
             boxShadow: 24,
@@ -63,6 +64,7 @@ const BookModal = ({ open, setOpen }) => {
             sx={{
               display: "flex",
               alignItems: "center",
+              
               justifyContent: "space-between",
             }}
           >
@@ -91,6 +93,7 @@ const BookModal = ({ open, setOpen }) => {
               flexDirection: "column",
               gap: "1rem",
               padding: "1rem 0",
+              marginTop: "1rem"
             }}
           >
             <Box>
