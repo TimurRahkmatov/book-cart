@@ -12,6 +12,7 @@ import Crypto from "crypto-js";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { createBook } from "../../../store/slices/book";
+import { toast } from "react-toastify";
 
 const BookModal = ({ open, setOpen }) => {
   const [isbn , setIsbn] = useState('')
@@ -19,16 +20,13 @@ const BookModal = ({ open, setOpen }) => {
   const dispatch = useDispatch()
   const key = localStorage.getItem("Key");
   const secret = localStorage.getItem("SecretKey");
-  console.log(isbn);
   const handleCreateBook = async (e) => {
     e.preventDefault();
-    // 27f4d134df9f2875ffd09264ff7c12d6
-
     const hash = Crypto.MD5(`POST/books{"isbn":"${isbn}"}` + secret).toString();
-    console.log(hash);
     try {
       const { data } = await axios.post("https://0001.uz/books" , {isbn: isbn }, {headers: {Key: key,Sign:hash }});
       if(data?.isOk == true) {
+        toast("success added book" , {type: "success"})
         dispatch(createBook(data?.data))
       }
       console.log(data);

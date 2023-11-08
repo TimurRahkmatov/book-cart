@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Crypto from "crypto-js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBook } from "../../store/slices/book";
+import { deleteBook, updateBook } from "../../store/slices/book";
 import { Button } from "antd";
 import { toast } from "react-toastify";
 import EditbookModal from "../Modal/EditBookModal";
@@ -47,7 +47,7 @@ const BookCard = () => {
       });
       if (data?.isOk == true) {
         toast("Success deleted book", { type: "success" });
-        dispatch(updateBook(data?.data));
+        dispatch(deleteBook(data?.data));
       }
     } catch (error) {
       console.log(error);
