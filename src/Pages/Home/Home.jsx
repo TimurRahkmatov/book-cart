@@ -2,17 +2,45 @@ import {
   Box,
   Button,
   Container,
-  Input,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Crypto from "crypto-js";
 import BookCard from "../../Components/BookCard";
 import BookModal from "../../Components/Modal/CreateBooModal";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { createBook } from "../../store/slices/book";
+
 
 const Home = () => {
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state?.book.book);
+  const key = localStorage.getItem("Key");
+  const hash = Crypto.MD5("GET/books" + key).toString();
 
+  const getBooks = async () => {
+    try {
+      const { data } = await axios.get("https://0001.uz/books", {
+        headers: { Key: key, Sign: hash },
+      });
+      if (data?.isOk === true) {
+        dispatch(createBook(data?.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+    getBooks();
+  }, []);
+
+
+
+  const [open, setOpen] = useState(false);
   return (
     <Box sx={{ padding: "2rem 0" }} component="section">
       <Container>
@@ -31,7 +59,7 @@ const Home = () => {
             >
               You've got{" "}
               <Typography variant="h4" sx={{ color: "#6200EE" }}>
-                7 book
+                {state === null ?  ("0") : (state?.length)}
               </Typography>
             </Typography>
           </Box>
@@ -83,7 +111,7 @@ const Home = () => {
          />
         <Box>
           <Typography variant="h6" sx={{ color: "#fff", marginTop: "1rem" }}>
-            Your task today
+            {state === null ? ("You have not books") : ("Your task today")}
           </Typography>
           <Box
             sx={{
