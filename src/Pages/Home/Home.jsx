@@ -111,7 +111,7 @@ const Home = () => {
          />
         <Box>
           <Typography variant="h6" sx={{ color: "#fff", marginTop: "1rem" }}>
-            {state.length  == 0 ? ("You have not books") : ("Your task today")}
+            {state?.length  == 0 ? ("You have not books") : ("Your task today")}
           </Typography>
           <Box
             sx={{

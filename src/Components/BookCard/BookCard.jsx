@@ -1,12 +1,12 @@
 import { Box, Typography , Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Crypto from "crypto-js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBook, updateBook } from "../../store/slices/book";
-import { toast } from "react-toastify";
+import { updateBook } from "../../store/slices/book";
 import EditbookModal from "../Modal/EditBookModal";
 import { HASH_GET_BOOKS, KEY, SECRET } from "../../constains/hash";
+import DeleteButton from "../Buttons/DeleteButton";
+import EditButton from "../Buttons/EditButton";
 
 const BookCard = () => {
   const dispatch = useDispatch();
@@ -35,25 +35,6 @@ const BookCard = () => {
     getBooks();
   }, []);
 
-  const handleRemoveBook = async (id) => {
-    try {
-      const HASH_REMOVE_BOOK = Crypto.MD5(
-        "DELETE/books/" + id + SECRET
-      ).toString();
-      const { data } = await axios.delete(`https://0001.uz/books/${id}`, {
-        headers: {
-          Key: KEY,
-          Sign: HASH_REMOVE_BOOK,
-        },
-      });
-      if (data?.isOk == true) {
-        toast("Success deleted book", { type: "success" });
-        dispatch(deleteBook(data?.data));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <>
@@ -131,23 +112,8 @@ const BookCard = () => {
                 gap: "1rem",
               }}
             >
-              <Button sx={{width: "87px" , height: '33px' , backgroundColor: 'red' , display: "flex" , alignItems: 'center' , gap: '0.3rem' , color: "#fff"  , textTransform: "none" , ":hover": {
-                  backgroundColor: "#fff",
-                  color: "red",
-                  textTransform: 'none',
-                  border: "1px solid red",
-                }}}  component="button" onClick={() => handleRemoveBook(item?.book?.id)}>
-              <i className="fa-solid fa-trash"></i> Delete
-              </Button>
-              <Button sx={{width: "87px" , height: '33px' , backgroundColor: 'green' , display: "flex" , alignItems: 'center' , gap: '0.3rem' , color: "#fff"  , textTransform: "none" , ":hover": {
-                  backgroundColor: "#fff",
-                  color: "green",
-                  textTransform: 'none',
-                  border: "1px solid green",
-                }}} onClick={() => handleOpenModal(true, item?.book?.id)}>
-              <i className="fa-solid fa-pen-nib"></i>
-                Edit
-              </Button>
+              <DeleteButton id={item?.book?.id} />
+              <EditButton id={item?.book?.id} handleOpenModal={handleOpenModal} />
             </Box>
           </Box>
         </Box>
