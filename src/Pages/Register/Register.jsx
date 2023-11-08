@@ -31,6 +31,7 @@ const Register = () => {
       if (data?.isOk === true) {
         toast("Success registered", { type: "success" });
         localStorage.setItem(PrivateToken , data?.data?.key);
+        localStorage.setItem("SecretKey" , data?.data?.secret)
         navigate("/");
       }
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -8,9 +8,34 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Crypto from "crypto-js";
+import axios from "axios";
 
 const BookModal = ({ open, setOpen }) => {
   const handleClose = () => setOpen(false);
+  const key = localStorage.getItem("Key");
+  const secret = localStorage.getItem("SecretKey");
+
+  const handleCreateBook = async (e) => {
+    e.preventDefault();
+    const isbn = {
+      isbn: "9781957779072",
+    };
+
+
+    // 27f4d134df9f2875ffd09264ff7c12d6
+
+    const hash = Crypto.MD5(`POST/books{isbn: "9781957779074}`+ secret).toString();
+    console.log(hash);
+    try {
+      const { data } = await axios.post("https://0001.uz/books" , {"isbn": "9781957779074" }, {headers: {Key: key,Sign:hash }});
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Modal
@@ -58,7 +83,9 @@ const BookModal = ({ open, setOpen }) => {
             </Box>
           </Box>
           <FormControl
-            sx={{
+          component="form"
+          
+            sx={{ 
               width: "100%",
               display: "flex",
               flexDirection: "column",
@@ -66,7 +93,7 @@ const BookModal = ({ open, setOpen }) => {
               padding: "1rem 0",
             }}
           >
-            <Box>
+            {/* <Box>
               <FormLabel sx={{ color: "black" }} htmlFor="title">
                 Title
               </FormLabel>
@@ -113,7 +140,7 @@ const BookModal = ({ open, setOpen }) => {
                   },
                 }}
               />
-            </Box>
+            </Box> */}
             <Box>
               <FormLabel sx={{ color: "black" }} htmlFor="Published">
                 Published
@@ -176,6 +203,7 @@ const BookModal = ({ open, setOpen }) => {
                 Close
               </Button>
               <Button
+              onClick={handleCreateBook}
                 sx={{
                   width: "100%",
                   color: "#fff",

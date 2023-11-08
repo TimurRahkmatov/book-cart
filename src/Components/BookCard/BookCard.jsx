@@ -4,18 +4,22 @@ import Crypto from "crypto-js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { createBook } from "../../store/slices/book";
+import { Button } from "antd";
+import { toast } from "react-toastify";
 
 const BookCard = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state?.book.book);
   const key = localStorage.getItem("Key");
-  const hash = Crypto.MD5("GET/books" + key).toString();
+  const secret = localStorage.getItem("SecretKey");
 
   const getBooks = async () => {
     try {
+      const hash = Crypto.MD5("GET/books" + "dot").toString();
       const { data } = await axios.get("https://0001.uz/books", {
-        headers: { Key: key, Sign: hash },
+        headers: { Key: "dot", Sign: hash },
       });
+      console.log(data);
       if (data?.isOk === true) {
         dispatch(createBook(data?.data));
       }
@@ -23,6 +27,24 @@ const BookCard = () => {
       console.log(error);
     }
   };
+
+  const handleRemoveBook = async (id) => {
+    try {
+      const hash = Crypto.MD5("DELETE/books/"+id+"dot").toString();
+      const { data } = await axios.delete(`https://0001.uz/books/${id}` , {headers: {
+        Key: "dot",
+        Sign: hash
+      }});
+      if(data?.isOk == true) {
+          toast("Success deleted book" , {type: "success"})
+          dispatch(createBook(data?.data))        
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(state);
 
   useEffect(() => {
     getBooks();
@@ -46,9 +68,9 @@ const BookCard = () => {
           <Typography
             sx={{ fontSize: "1.1rem", fontWeight: "600", width: "350px" }}
           >
-            {item?.title}
+            {item?.book.title}
           </Typography>
-          <Typography sx={{ width: "350px" }}>{item?.cover}</Typography>
+          <Typography sx={{ width: "350px" }}>{item?.book.cover}</Typography>
           <Box
             sx={{
               display: "flex",
@@ -59,8 +81,10 @@ const BookCard = () => {
             <Typography
               sx={{ display: "flex", alignItems: "center", gap: "0.4rem" }}
             >
-              {item?.author}
-              <Typography sx={{ color: "grey" }}>{item?.published}</Typography>
+              {item?.book.author}
+              <Typography sx={{ color: "grey" }}>
+                {item?.book.published}
+              </Typography>
             </Typography>
 
             <Box
@@ -75,7 +99,9 @@ const BookCard = () => {
                 color: "#9654F4",
               }}
             >
-              {item?.pages}
+              {item?.book.pages}
+
+              <Button  onClick={() => handleRemoveBook(item?.book?.id)}>Delete</Button>
             </Box>
           </Box>
         </Box>

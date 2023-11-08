@@ -18,12 +18,12 @@ const Home = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state?.book.book);
   const key = localStorage.getItem("Key");
-  const hash = Crypto.MD5("GET/books" + key).toString();
+  const hash = Crypto.MD5("GET/books" + "dot").toString();
 
   const getBooks = async () => {
     try {
       const { data } = await axios.get("https://0001.uz/books", {
-        headers: { Key: key, Sign: hash },
+        headers: { Key: "dot", Sign: hash },
       });
       if (data?.isOk === true) {
         dispatch(createBook(data?.data));
