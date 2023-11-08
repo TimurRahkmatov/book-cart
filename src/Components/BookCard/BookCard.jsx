@@ -1,14 +1,17 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Crypto from "crypto-js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { createBook } from "../../store/slices/book";
 import { Button } from "antd";
 import { toast } from "react-toastify";
+import EditbookModal from "../Modal/EditBookModal";
 
 const BookCard = () => {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+
   const state = useSelector((state) => state?.book.book);
   const key = localStorage.getItem("Key");
   const secret = localStorage.getItem("SecretKey");
@@ -30,14 +33,16 @@ const BookCard = () => {
 
   const handleRemoveBook = async (id) => {
     try {
-      const hash = Crypto.MD5("DELETE/books/"+id+"dot").toString();
-      const { data } = await axios.delete(`https://0001.uz/books/${id}` , {headers: {
-        Key: "dot",
-        Sign: hash
-      }});
-      if(data?.isOk == true) {
-          toast("Success deleted book" , {type: "success"})
-          dispatch(createBook(data?.data))        
+      const hash = Crypto.MD5("DELETE/books/" + id + "dot").toString();
+      const { data } = await axios.delete(`https://0001.uz/books/${id}`, {
+        headers: {
+          Key: "dot",
+          Sign: hash,
+        },
+      });
+      if (data?.isOk == true) {
+        toast("Success deleted book", { type: "success" });
+        dispatch(createBook(data?.data));
       }
     } catch (error) {
       console.log(error);
@@ -100,12 +105,26 @@ const BookCard = () => {
               }}
             >
               {item?.book.pages}
-
-              <Button  onClick={() => handleRemoveBook(item?.book?.id)}>Delete</Button>
             </Box>
+          </Box>
+          <Box
+            component="div"
+            sx={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "end",
+              gap: "1rem",
+            }}
+          >
+            <Button onClick={() => handleRemoveBook(item?.book?.id)}>
+              Delete
+            </Button>
+            <Button onClick={() => setOpen(true)}>Edit</Button>
           </Box>
         </Box>
       ))}
+      <EditbookModal open={open} setOpen={setOpen} />
     </>
   );
 };

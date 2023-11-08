@@ -12,16 +12,18 @@ import BookModal from "../../Components/Modal/CreateBooModal";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { createBook } from "../../store/slices/book";
+import EditbookModal from "../../Components/Modal/EditBookModal";
 
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const state = useSelector((state) => state?.book.book);
-  const key = localStorage.getItem("Key");
-  const hash = Crypto.MD5("GET/books" + "dot").toString();
-
+  
   const getBooks = async () => {
     try {
+      const key = localStorage.getItem("Key");
+      const hash = Crypto.MD5("GET/books" + "dot").toString();
       const { data } = await axios.get("https://0001.uz/books", {
         headers: { Key: "dot", Sign: hash },
       });
@@ -40,7 +42,6 @@ const Home = () => {
 
 
 
-  const [open, setOpen] = useState(false);
   return (
     <Box sx={{ padding: "2rem 0" }} component="section">
       <Container>
