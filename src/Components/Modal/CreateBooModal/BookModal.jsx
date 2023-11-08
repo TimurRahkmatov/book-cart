@@ -10,26 +10,27 @@ import {
 } from "@mui/material";
 import Crypto from "crypto-js";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { createBook } from "../../../store/slices/book";
 
 const BookModal = ({ open, setOpen }) => {
+  const [isbn , setIsbn] = useState('')
   const handleClose = () => setOpen(false);
+  const dispatch = useDispatch()
   const key = localStorage.getItem("Key");
   const secret = localStorage.getItem("SecretKey");
-
+  console.log(isbn);
   const handleCreateBook = async (e) => {
     e.preventDefault();
-    const isbn = {
-      isbn: "9781957779072",
-    };
-
-
     // 27f4d134df9f2875ffd09264ff7c12d6
 
-    const hash = Crypto.MD5(`POST/books{isbn: "9781957779074}`+ secret).toString();
+    const hash = Crypto.MD5(`POST/books{"isbn":"${isbn}"}` + secret).toString();
     console.log(hash);
     try {
-      const { data } = await axios.post("https://0001.uz/books" , {"isbn": "9781957779074" }, {headers: {Key: key,Sign:hash }});
-
+      const { data } = await axios.post("https://0001.uz/books" , {isbn: isbn }, {headers: {Key: key,Sign:hash }});
+      if(data?.isOk == true) {
+        dispatch(createBook(data?.data))
+      }
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -93,78 +94,15 @@ const BookModal = ({ open, setOpen }) => {
               padding: "1rem 0",
             }}
           >
-            {/* <Box>
-              <FormLabel sx={{ color: "black" }} htmlFor="title">
-                Title
-              </FormLabel>
-              <TextField
-                placeholder="Enter your title"
-                id="title"
-                sx={{ width: "100%", marginTop: "0.3rem" }}
-                variant="outlined"
-                inputProps={{
-                  style: {
-                    height: "8px",
-                  },
-                }}
-              />
-            </Box>
-            <Box>
-              <FormLabel sx={{ color: "black" }} htmlFor="author">
-                Author
-              </FormLabel>
-              <TextField
-                placeholder="Enter your author"
-                id="author"
-                sx={{ width: "100%", marginTop: "0.3rem" }}
-                variant="outlined"
-                inputProps={{
-                  style: {
-                    height: "8px",
-                  },
-                }}
-              />
-            </Box>
-            <Box>
-              <FormLabel sx={{ color: "black" }} htmlFor="cover">
-                Cover
-              </FormLabel>
-              <TextField
-                placeholder="Enter your cover"
-                id="cover"
-                sx={{ width: "100%", marginTop: "0.3rem" }}
-                variant="outlined"
-                inputProps={{
-                  style: {
-                    height: "8px",
-                  },
-                }}
-              />
-            </Box> */}
-            <Box>
-              <FormLabel sx={{ color: "black" }} htmlFor="Published">
-                Published
-              </FormLabel>
-              <TextField
-                placeholder="Enter your published"
-                id="Published"
-                sx={{ width: "100%", marginTop: "0.3rem" }}
-                variant="outlined"
-                inputProps={{
-                  style: {
-                    height: "8px",
-                  },
-                }}
-              />
-            </Box>
             <Box>
               <FormLabel sx={{ color: "black" }} htmlFor="pages">
-                Pages
+                Book Isbn Number
               </FormLabel>
               <TextField
-                placeholder="Enter your pages"
-                id="pages"
-                sx={{ width: "100%", marginTop: "0.3rem" }}
+                placeholder="Mavjud bo'lgan kitob isbn nomerini kiriting"
+                id="isb"
+                onChange={(e) => setIsbn(e.target.value)}
+                sx={{ width: "100%", marginTop: "0.4rem" }}
                 variant="outlined"
                 inputProps={{
                   style: {

@@ -8,13 +8,17 @@ const bookSlice = createSlice({
   name: "book",
   initialState,
   reducers: {
-    createBook(state, action) {
+    updateBook(state, action) {
       state.book = action.payload;
+    },
+    createBook(state , action) {
+        state.book.push(action.payload)
     }
+
   },
 });
 
-export const { createBook } = bookSlice.actions;
+export const { updateBook , createBook } = bookSlice.actions;
 
 const bookReducer = bookSlice.reducer;
 

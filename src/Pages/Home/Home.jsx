@@ -11,24 +11,25 @@ import BookCard from "../../Components/BookCard";
 import BookModal from "../../Components/Modal/CreateBooModal";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { createBook } from "../../store/slices/book";
-import EditbookModal from "../../Components/Modal/EditBookModal";
+import { updateBook } from "../../store/slices/book";
 
 
 const Home = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const state = useSelector((state) => state?.book.book);
-  
+  const secret = localStorage.getItem("SecretKey");
+
+
   const getBooks = async () => {
     try {
       const key = localStorage.getItem("Key");
-      const hash = Crypto.MD5("GET/books" + "dot").toString();
+      const hash = Crypto.MD5("GET/books" + secret).toString();
       const { data } = await axios.get("https://0001.uz/books", {
-        headers: { Key: "dot", Sign: hash },
+        headers: { Key: key, Sign: hash },
       });
       if (data?.isOk === true) {
-        dispatch(createBook(data?.data));
+        dispatch(updateBook(data?.data));
       }
     } catch (error) {
       console.log(error);
