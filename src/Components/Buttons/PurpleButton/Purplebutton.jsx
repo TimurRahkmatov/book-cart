@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 const PurpleButton = styled.button`
     width: 100%;
-    height: 34px;
+    height: 37px;
     border-radius: 4px;
     border: 2px solid #6200EE;
     background-color: #6200EE;

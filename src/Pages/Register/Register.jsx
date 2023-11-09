@@ -10,6 +10,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { auth_api } from "../../Api/user.api";
 import { toast } from "react-toastify";
+import PurpleButton from "../../Components/Buttons/PurpleButton/Purplebutton";
+import ContinueButton from "../../Components/Buttons/ContinueButton";
 const Register = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -60,45 +62,8 @@ const Register = () => {
             Sign Up
           </Typography>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-              width: "100%",
-              alignItems: "center",
-            }}
-          >
-            <Button
-              sx={{
-                color: "black",
-                border: "1px solid black",
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-              }}
-            >
-              <i style={{ color: "red" }} className="fa-brands fa-google"></i>
-              Continiue with Google
-            </Button>
-            <Button
-              sx={{
-                color: "black",
-                border: "1px solid black",
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-              }}
-            >
-              <i
-                style={{ color: "blue" }}
-                className="fa-brands fa-facebook"
-              ></i>
-              Continiue with Facebook
-            </Button>
-          </Box>
+          <ContinueButton />
+          
           <Box
             sx={{
               display: "flex",
@@ -167,21 +132,7 @@ const Register = () => {
               variant="outlined"
             />
 
-            <Button
-              sx={{
-                width: "100%",
-                color: "#fff",
-                backgroundColor: "#6200EE",
-                ":hover": {
-                  backgroundColor: "#fff",
-                  color: "#6200EE",
-                  border: "2px solid #6200EE",
-                },
-              }}
-              type="submit"
-            >
-              Button
-            </Button>
+            <PurpleButton type="submit">SUBMIT</PurpleButton>
             <Typography sx={{ textAlign: "center" }}>
               Already signed up ?{" "}
               <Link to='/login' style={{ color: "blue" }}>Go to sign in.</Link>
