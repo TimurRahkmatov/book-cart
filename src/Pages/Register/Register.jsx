@@ -56,7 +56,7 @@ const Register = () => {
         <Box
           sx={{
             padding: "1.5rem 1.3rem",
-            width: "400px",
+            width: {xs: "270px" , lg: "400px" , sm: "300px" ,  },
             height: "600px",
             background: "#fff",
             borderRadius: "15px",

@@ -13,6 +13,7 @@ const ContinueButton = () => {
       }}
     >
       <Button
+      
         sx={{
           color: "black",
           border: "1px solid black",
@@ -20,6 +21,7 @@ const ContinueButton = () => {
           display: "flex",
           alignItems: "center",
           gap: "0.5rem",
+          fontSize: {lg: "15px" , md: "15px" , sm: "15px" , xs: "13px"}
         }}
       >
         <i style={{ color: "red" }} className="fa-brands fa-google"></i>
@@ -33,6 +35,8 @@ const ContinueButton = () => {
           display: "flex",
           alignItems: "center",
           gap: "0.5rem",
+          fontSize: {lg: "15px" , md: "15px" , sm: "15px" , xs: "13px"}
+
         }}
       >
         <i style={{ color: "blue" }} className="fa-brands fa-facebook"></i>
