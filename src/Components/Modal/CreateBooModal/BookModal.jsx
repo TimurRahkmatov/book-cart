@@ -21,6 +21,7 @@ const BookModal = ({ open, setOpen }) => {
   const dispatch = useDispatch();
   const handleCreateBook = async (e) => {
     e.preventDefault();
+    console.log(SECRET);
     const HASH_CREATE_BOOK = Crypto.MD5(`POST/books{"isbn":"${isbn}"}` + SECRET).toString()
     try {
       const { data } = await axios.post(
@@ -28,6 +29,7 @@ const BookModal = ({ open, setOpen }) => {
         { isbn: isbn },
         { headers: { Key: KEY, Sign: HASH_CREATE_BOOK } }
       );
+      console.log(data);
       if (data?.isOk == true) {
         toast("success added book", { type: "success" });
         dispatch(createBook(data.data));
@@ -127,7 +129,7 @@ const BookModal = ({ open, setOpen }) => {
                 onClick={() => setOpen(false)}
                 sx={{
                   width: "100%",
-                  color: "#fff",
+                  backgroundColor: "#fff",
                   border: "2px solid #6200EE",
                   color: "#6200EE",
                   marginTop: "2rem",

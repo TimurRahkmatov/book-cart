@@ -19,14 +19,19 @@ const BookCard = () => {
     setId(id);
   };
 
+  console.log("state book" , state);
+
   const getBooks = async () => {
     try {
       const { data } = await axios.get("https://0001.uz/books", {
         headers: { Key: KEY, Sign: HASH_GET_BOOKS },
       });
-      console.log("books" ,data?.data);
       if (data?.isOk === true) {
-        dispatch(updateBook(data?.data));
+        if(data?.data == null) {
+          dispatch(updateBook([]))
+        }else {
+          dispatch(updateBook(data?.data));
+        }
       }
     } catch (error) {
       console.log(error);
@@ -36,7 +41,7 @@ const BookCard = () => {
     getBooks();
   }, []);
 
-
+  console.log(state);
   return (
     <>
       {state?.map((item) => (

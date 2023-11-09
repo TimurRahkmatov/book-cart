@@ -28,12 +28,22 @@ const Register = () => {
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await auth_api.register(values);
-      if (data?.isOk === true) {
-        toast("Success registered", { type: "success" });
-        localStorage.setItem("Key" , data.data.key);
-        localStorage.setItem("SecretKey" , data.data.secret)
-        navigate("/");
+      if (values.name.length < 2) {
+        toast("name must contain at least 2 letters", { type: "info" });
+      } else if (values.email < 7) {
+        toast("email must contain at least 3 letters", { type: "info" });
+      } else if (values.key < 6) {
+        toast("username must contain at least 6 letters", { type: "info" });
+      } else if (values.secret < 4) {
+        toast("Secret key must contain at least 6 letters", { type: "info" });
+      } else {
+        const { data } = await auth_api.register(values);
+        if (data?.isOk === true) {
+          toast("Success registered", { type: "success" });
+          localStorage.setItem("Key", data.data.key);
+          localStorage.setItem("SecretKey", data.data.secret);
+          location.replace("/");
+        }
       }
     } catch (error) {
       toast(error?.response?.data?.message, { type: "warning" });
@@ -63,7 +73,7 @@ const Register = () => {
           </Typography>
 
           <ContinueButton />
-          
+
           <Box
             sx={{
               display: "flex",
@@ -99,7 +109,7 @@ const Register = () => {
               name="name"
               id="outlined-basic"
               required
-              label="username"
+              label="name"
               variant="outlined"
             />
             <TextField
@@ -107,7 +117,7 @@ const Register = () => {
               value={values.key}
               name="key"
               id="outlined-basic"
-              label="key"
+              label="Username"
               required
               variant="outlined"
             />
@@ -135,7 +145,9 @@ const Register = () => {
             <PurpleButton type="submit">SUBMIT</PurpleButton>
             <Typography sx={{ textAlign: "center" }}>
               Already signed up ?{" "}
-              <Link to='/login' style={{ color: "blue" }}>Go to sign in.</Link>
+              <Link to="/login" style={{ color: "blue" }}>
+                Go to sign in.
+              </Link>
             </Typography>
           </FormControl>
         </Box>
