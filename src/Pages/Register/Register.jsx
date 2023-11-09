@@ -29,8 +29,8 @@ const Register = () => {
       const { data } = await auth_api.register(values);
       if (data?.isOk === true) {
         toast("Success registered", { type: "success" });
-        localStorage.setItem("Key" , data?.data?.key);
-        localStorage.setItem("SecretKey" , data?.data?.secret)
+        localStorage.setItem("Key" , data.data.key);
+        localStorage.setItem("SecretKey" , data.data.secret)
         navigate("/");
       }
     } catch (error) {
@@ -43,7 +43,7 @@ const Register = () => {
       <Container>
         <Box
           sx={{
-            padding: "2rem 1.3rem",
+            padding: "1.5rem 1.3rem",
             width: "400px",
             height: "600px",
             background: "#fff",
@@ -133,6 +133,7 @@ const Register = () => {
               value={values.name}
               name="name"
               id="outlined-basic"
+              required
               label="username"
               variant="outlined"
             />
@@ -142,6 +143,7 @@ const Register = () => {
               name="key"
               id="outlined-basic"
               label="key"
+              required
               variant="outlined"
             />
             <TextField
@@ -149,6 +151,8 @@ const Register = () => {
               name="email"
               value={values.email}
               id="email"
+              type="email"
+              required
               label="Your email"
               variant="outlined"
             />
@@ -157,6 +161,8 @@ const Register = () => {
               name="secret"
               value={values.password}
               id="password"
+              type="password"
+              required
               label="Your password"
               variant="outlined"
             />
@@ -178,7 +184,7 @@ const Register = () => {
             </Button>
             <Typography sx={{ textAlign: "center" }}>
               Already signed up ?{" "}
-              <Link style={{ color: "blue" }}>Go to sign in.</Link>
+              <Link to='/login' style={{ color: "blue" }}>Go to sign in.</Link>
             </Typography>
           </FormControl>
         </Box>

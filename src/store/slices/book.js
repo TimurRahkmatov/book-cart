@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   book: null,
+  search: null
 };
 
 const bookSlice = createSlice({
@@ -20,11 +21,14 @@ const bookSlice = createSlice({
     editBookStatus(state , action) {
         const book = state.book.find((item) => item.book.id == action.payload.book.id)
         book.status = action.payload.status
+    },
+    searchGet(state , action) {
+      state.search = action.payload
     }
   },
 });
 
-export const { updateBook , createBook , deleteBook , editBookStatus } = bookSlice.actions;
+export const { updateBook , createBook , deleteBook , editBookStatus , searchGet } = bookSlice.actions;
 
 const bookReducer = bookSlice.reducer;
 

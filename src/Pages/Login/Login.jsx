@@ -136,7 +136,7 @@ const Login = () => {
             </Link>
             <Typography sx={{ textAlign: "center" }}>
               Already signed up ?{" "}
-              <Link style={{ color: "blue" }}>Go to sign up.</Link>
+              <Link to='/register' style={{ color: "blue" }}>Go to sign up.</Link>
             </Typography>
           </FormControl>
         </Box>

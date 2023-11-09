@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Container,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Crypto from "crypto-js";
 import BookCard from "../../Components/BookCard";
@@ -14,14 +8,14 @@ import axios from "axios";
 import { updateBook } from "../../store/slices/book";
 import { HASH_GET_BOOKS, KEY } from "../../constains/hash";
 import CreateButton from "../../Components/Buttons/CreateButton";
-
+import Header from "../../Components/Header";
+import SearchCard from "../../Components/SearchCard";
 
 const Home = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const state = useSelector((state) => state?.book.book);
-
-
+  const search = useSelector((state) => state.book.search)
   const getBooks = async () => {
     try {
       const { data } = await axios.get("https://0001.uz/books", {
@@ -36,10 +30,11 @@ const Home = () => {
   };
 
 
+  console.log("search" , search);
+
   useEffect(() => {
     getBooks();
   }, []);
-
 
   return (
     <Box sx={{ padding: "2rem 0" }} component="section">
@@ -50,7 +45,7 @@ const Home = () => {
             alignItems: "center",
             justifyContent: "space-between",
             flexWrap: "wrap",
-            gap:"2rem"
+            gap: "2rem",
           }}
         >
           <Box>
@@ -59,8 +54,8 @@ const Home = () => {
               variant="h4"
             >
               You've got{" "}
-              <Typography variant="h4" sx={{ color: "#6200EE" , }}>
-                {state === null ?  ("0") : (state?.length)} books
+              <Typography variant="h4" sx={{ color: "#6200EE" }}>
+                {state === null ? "0" : state?.length} books
               </Typography>
             </Typography>
           </Box>
@@ -69,10 +64,9 @@ const Home = () => {
               id="outlined-basic"
               placeholder="Enter your name"
               variant="outlined"
-              
               inputProps={{
                 style: {
-                  width: '220px',
+                  width: "220px",
                   height: "8px",
                 },
               }}
@@ -85,26 +79,22 @@ const Home = () => {
             <CreateButton setOpen={setOpen} />
           </Box>
         </Box>
-        <BookModal
-           open={open}
-           setOpen={setOpen}
-         />
+        <BookModal open={open} setOpen={setOpen} />
         <Box>
           <Typography variant="h6" sx={{ color: "#fff", marginTop: "1rem" }}>
-            {state?.length  == 0 ? ("You have not books") : ("Your task today")}
+            {state?.length == 0 ? "You have not books" : "Your task today"}
           </Typography>
           <Box
-          
-          component="div"
+            component="div"
             sx={{
-              
               display: "flex",
               flexWrap: "wrap",
               gap: "1rem",
               padding: "1rem 0",
             }}
           >
-            <BookCard />
+            {search == null ? (<BookCard />) : (<SearchCard />)}
+            
           </Box>
         </Box>
       </Container>

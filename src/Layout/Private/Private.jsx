@@ -4,8 +4,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import BackgroundImage from "../../assets/background.png"
 import { KEY } from "../../constains/hash";
 const Private = () => {
-
-  return KEY ? (
+  const key = localStorage.getItem("Key")
+  return key ? (
     <>
       <img
         className="background_image"

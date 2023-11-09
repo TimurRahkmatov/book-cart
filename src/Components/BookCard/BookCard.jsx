@@ -24,6 +24,7 @@ const BookCard = () => {
       const { data } = await axios.get("https://0001.uz/books", {
         headers: { Key: KEY, Sign: HASH_GET_BOOKS },
       });
+      console.log("books" ,data?.data);
       if (data?.isOk === true) {
         dispatch(updateBook(data?.data));
       }
