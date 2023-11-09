@@ -27,14 +27,14 @@ const Login = () => {
             justifyContent: "center",
             marginLeft: "0.2rem",
             alignItems: "center",
-            padding: '0 1rem'
+            padding: "0 1rem",
           }}
         >
           <Box
-          width={{sm: 1 , xs: 1, md:2 , lg: "400px"}}
             sx={{
               padding: "2rem 1.3rem",
-              width: "400px",
+              width: { xs: "270px", lg: "400px", sm: "300px" },
+
               height: "530px",
               background: "#fff",
               borderRadius: "15px",
@@ -50,7 +50,7 @@ const Login = () => {
               Sign In
             </Typography>
             <ContinueButton />
-            
+
             <Box
               sx={{
                 display: "flex",

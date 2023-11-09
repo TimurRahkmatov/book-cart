@@ -35,7 +35,7 @@ const ContinueButton = () => {
           display: "flex",
           alignItems: "center",
           gap: "0.5rem",
-          fontSize: {lg: "15px" , md: "15px" , sm: "15px" , xs: "13px"}
+          fontSize: {lg: "14px" , md: "14px" , sm: "14px" , xs: "12px"}
 
         }}
       >
