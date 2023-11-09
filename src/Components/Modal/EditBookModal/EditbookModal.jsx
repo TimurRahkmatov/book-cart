@@ -71,9 +71,9 @@ const dispatch = useDispatch()
           onChange={onChange}
           value={value}
         >
-          <Radio value={0}>1-New</Radio>
-          <Radio value={1}>2-Reading</Radio>
-          <Radio value={2}>3-Finished</Radio>
+          <Radio value={0}>0-New</Radio>
+          <Radio value={1}>1-Reading</Radio>
+          <Radio value={2}>2-Finished</Radio>
         </Radio.Group>
         <Button
           onClick={() => EditstatusBook()}
