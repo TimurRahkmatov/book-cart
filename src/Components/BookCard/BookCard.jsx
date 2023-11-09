@@ -48,7 +48,7 @@ const BookCard = () => {
         <Box
           key={item?.book.id}
           sx={{
-            width: "370px",
+            width: {lg: "370px" , md: "370px" , sm: "360px", xs: "340px" },
             boxShadow: "0px 0px 20px #aaaaaa47",
             backgroundColor: "#fff",
             padding: "1.5rem",
