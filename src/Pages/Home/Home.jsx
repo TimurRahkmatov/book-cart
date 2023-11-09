@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { updateBook } from "../../store/slices/book";
 import { HASH_GET_BOOKS, KEY } from "../../constains/hash";
+import CreateButton from "../../Components/Buttons/CreateButton";
 
 
 const Home = () => {
@@ -81,28 +82,7 @@ const Home = () => {
                 borderRadius: "4px",
               }}
             />
-            <Button
-              onClick={() => setOpen(true)}
-              sx={{
-                padding: "0.5rem 1.3rem",
-                display: 'flex',
-                backgroundColor: "#6200EE",
-                color: "#fff",
-                textTransform: 'none',
-                alignItems: "center",
-                justifyContent: "center",
-                gap: '0.4rem',
-                
-                ":hover": {
-                  backgroundColor: "#fff",
-                  color: "#6200EE",
-                  textTransform: 'none',
-                  border: "1px solid #6200EE",
-                },
-              }}
-            >
-              <i className="fa-solid fa-plus"></i> Create a book 
-            </Button>
+            <CreateButton setOpen={setOpen} />
           </Box>
         </Box>
         <BookModal
@@ -114,7 +94,10 @@ const Home = () => {
             {state?.length  == 0 ? ("You have not books") : ("Your task today")}
           </Typography>
           <Box
+          
+          component="div"
             sx={{
+              
               display: "flex",
               flexWrap: "wrap",
               gap: "1rem",

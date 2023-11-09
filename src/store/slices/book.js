@@ -21,7 +21,6 @@ const bookSlice = createSlice({
         const book = state.book.find((item) => item.book.id == action.payload.book.id)
         book.status = action.payload.status
     }
-
   },
 });
 

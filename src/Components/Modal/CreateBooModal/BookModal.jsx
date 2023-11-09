@@ -33,7 +33,9 @@ const BookModal = ({ open, setOpen }) => {
         dispatch(createBook(data.data));
       }
     } catch (error) {
-      console.log(error);
+      if(error?.response.data.message) {
+        toast(error?.response.data.message , {type: 'warning'})
+      }
     }
   };
 

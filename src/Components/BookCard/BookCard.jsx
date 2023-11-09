@@ -50,6 +50,7 @@ const BookCard = () => {
             borderRadius: "8px",
             display: "flex",
             flexDirection: "column",
+            justifyContent: 'space-between',
             gap: "0.7rem",
           }}
         >
