@@ -26,3 +26,10 @@ ul {
   z-index: -1;
   
 }
+
+@media (max-width: 630px) {
+  .box_avatar {
+    display: none;
+  }
+  
+}

@@ -21,18 +21,21 @@ const BookModal = ({ open, setOpen }) => {
   const dispatch = useDispatch();
   const handleCreateBook = async (e) => {
     e.preventDefault();
-    console.log(SECRET);
     const HASH_CREATE_BOOK = Crypto.MD5(`POST/books{"isbn":"${isbn}"}` + SECRET).toString()
     try {
-      const { data } = await axios.post(
-        "https://0001.uz/books",
-        { isbn: isbn },
-        { headers: { Key: KEY, Sign: HASH_CREATE_BOOK } }
-      );
-      console.log(data);
-      if (data?.isOk == true) {
-        toast("success added book", { type: "success" });
-        dispatch(createBook(data.data));
+      if(isbn.length !== 13) {
+        toast("isbn number must contain at least 6 letters" , {type: 'info'})
+      }else {
+        const { data } = await axios.post(
+          "https://0001.uz/books",
+          { isbn: isbn },
+          { headers: { Key: KEY, Sign: HASH_CREATE_BOOK } }
+        );
+        if (data?.isOk == true) {
+          toast("success added book", { type: "success" });
+          dispatch(createBook(data.data));
+        }
+
       }
     } catch (error) {
       if(error?.response.data.message) {

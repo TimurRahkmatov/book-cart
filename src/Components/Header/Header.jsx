@@ -72,7 +72,7 @@ const Header = () => {
               aria-describedby="my-helper-text"
             />
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+          <Box component="div" display={{lg: "flex" , sm: "flex", md: "flex", xs: 'none' }} sx={{ alignItems: "center", gap: "1.5rem" }}>
             <i
               style={{ fontSize: "1.5rem" }}
               className="fa-regular fa-bell"

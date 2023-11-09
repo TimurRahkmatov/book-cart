@@ -6,9 +6,7 @@ import BookModal from "../../Components/Modal/CreateBooModal";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { updateBook } from "../../store/slices/book";
-// import { HASH_GET_BOOKS, KEY } from "../../constains/hash";
 import CreateButton from "../../Components/Buttons/CreateButton";
-import Header from "../../Components/Header";
 import SearchCard from "../../Components/SearchCard";
 
 const Home = () => {
@@ -67,7 +65,7 @@ const Home = () => {
               </Typography>
             </Typography>
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "2rem" , flexWrap: "wrap" }}>
             <TextField
               id="outlined-basic"
               placeholder="Enter your name"
